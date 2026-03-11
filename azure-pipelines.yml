@@ -13,16 +13,23 @@ steps:
     displayName: 'Install Node.js'
 
   - script: |
-      npm install
-    displayName: 'Install dependencies'
+      npm ci
+    displayName: 'Clean Install Dependencies'
 
   - script: |
-      npx playwright install
-      npx playwright test --reporter=html
-    displayName: 'Run Playwright Tests'
+      npx playwright install --with-deps
+    displayName: 'Install Playwright Browsers & System Deps'
 
-  - task: PublishBuildArtifacts@1
+  - script: |
+      npx playwright test
+    displayName: 'Run Playwright Tests'
+    env:
+      CI: 'true' # Tells Playwright it's running in a CI environment
+
+  - task: PublishPipelineArtifact@1
+    displayName: 'Publish Playwright HTML Report'
+    condition: succeededOrFailed()
     inputs:
-      PathtoPublish: 'playwright-report'
-      ArtifactName: 'PlaywrightReport'
-      publishLocation: 'Container'
+      targetPath: '$(Build.SourcesDirectory)/playwright-report'
+      artifact: 'Playwright-Results'
+      publishLocation: 'pipeline'

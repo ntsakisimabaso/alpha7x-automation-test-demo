@@ -6,7 +6,7 @@ This project demonstrates QA automation testing using Playwright.
 
 - UI automation tests
 - API testing
-- Cloud ready automation project
+- Cloud-ready automation project
 
 ## Test Website
 
