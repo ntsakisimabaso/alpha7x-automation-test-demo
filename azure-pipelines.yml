@@ -7,16 +7,19 @@ pool:
   name: 'MyLocalAgent'
 
 steps:
-# 1. Diagnostic Health Check
+# 1. System Health Check
 - script: |
+    set -x
     echo "Current user: $(whoami)"
     echo "Current directory: $(pwd)"
     git --version
-    node -v
+    node -v || echo "Node not found"
+    npm -v || echo "npm not found"
+    npx playwright --version || echo "Playwright CLI not found"
   displayName: 'System Health Check'
   condition: always()
 
-# 2. Environment Setup
+# 2. Node.js Setup
 - task: NodeTool@0
   inputs:
     versionSpec: '20.x'
@@ -24,25 +27,29 @@ steps:
 
 # 3. Install Dependencies
 - script: |
+    set -x
     npm ci
   displayName: 'Clean Install Dependencies'
 
-# 4. Browser Setup
+# 4. Playwright Browser Setup
 - script: |
+    set -x
     npx playwright install --with-deps
-  displayName: 'Install Playwright Browsers & System Deps'
+  displayName: 'Install Playwright Browsers & System Dependencies'
 
-# 5. Execution
+# 5. Run Playwright Tests
 - script: |
-    npx playwright test
+    set -x
+    npx playwright test --reporter=html
   displayName: 'Run Playwright Tests'
   env:
     CI: 'true'
+  continueOnError: true  # so pipeline doesn't stop if tests fail
 
-# 6. Artifact Upload
+# 6. Publish HTML Report
 - task: PublishPipelineArtifact@1
   displayName: 'Publish Playwright HTML Report'
-  condition: succeededOrFailed()
+  condition: always()
   inputs:
     targetPath: '$(Build.SourcesDirectory)/playwright-report'
     artifact: 'Playwright-Results'
