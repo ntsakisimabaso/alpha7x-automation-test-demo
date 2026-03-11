@@ -7,6 +7,14 @@ pool:
   name: 'MyLocalAgent'
 
 steps:
+- script: |
+    echo "Current user: $(whoami)"
+    echo "Current directory: $(pwd)"
+    git --version
+    node -v
+  displayName: 'System Health Check'
+
+steps:
   - task: NodeTool@0
     inputs:
       versionSpec: '20.x'
