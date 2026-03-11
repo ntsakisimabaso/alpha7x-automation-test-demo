@@ -12,7 +12,7 @@ This project demonstrates QA automation testing using Playwright.
 
 https://www.saucedemo.com
 
-## API Testing
+## API Test
 
 https://jsonplaceholder.typicode.com
 
