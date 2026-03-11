@@ -4,7 +4,7 @@ trigger:
       - main
 
 pool:
-  vmImage: 'ubuntu-latest'
+  name: 'MyLocalAgent'
 
 steps:
   - task: NodeTool@0
