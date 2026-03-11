@@ -19,4 +19,4 @@ https://jsonplaceholder.typicode.com
 ## Run Tests
 
 npm install
-npx playwright test 2
+npx playwright test
