@@ -4,7 +4,7 @@ trigger:
       - main
 
 pool:
-  name: MyLocalAgent
+  name: MyLocalAgentPool
 
 steps:
 
