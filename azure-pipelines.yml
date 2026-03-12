@@ -34,7 +34,7 @@ steps:
 # 4. Playwright Browser Setup
 - script: |
     set -x
-    npx playwright install --with-deps
+    npx playwright install
   displayName: 'Install Playwright Browsers & System Dependencies'
 
 # 5. Run Playwright Tests
