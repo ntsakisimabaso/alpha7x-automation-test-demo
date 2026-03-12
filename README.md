@@ -49,6 +49,6 @@ The pipeline (`azure-pipelines.yml`) triggers on pushes to `main` and:
    ```
 3. Configure and run:
    ```sh
-   ./config.sh   # register to the Default pool
+   ./config.sh   #register to the Default pool 
    ./run.sh
    ```
