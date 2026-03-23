@@ -1,4 +1,4 @@
-# alpha7x-automation-test-demo
+# playwright-api-automation-test-demo
 
 A QA automation demo project using Playwright, with CI/CD via Azure Pipelines running on a self-hosted macOS agent.
 
